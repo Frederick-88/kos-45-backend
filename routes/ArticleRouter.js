@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const productController = require("../controller/ProductsController");
-const { validateAdmin, validateUser } = require("../validator/UsersValidator");
+const articleController = require("../controller/ArticleController");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -19,27 +18,17 @@ const upload = multer({
 
 // upload.single("image") means only upload 1 (image). you can check more options on the multer docs or go to the chat backend.
 router.post(
-  "/addproduct",
+  "/addarticle",
   upload.single("image"),
-  validateAdmin,
-  productController.createProduct
+  articleController.createProduct
 );
 router.put(
-  "/editproduct/:productId",
+  "/editarticle/:articleId",
   upload.single("image"),
-  validateAdmin,
-  productController.editProductById
+  articleController.editProductById
 );
-router.get("/getproduct", productController.getAllProducts);
-router.get(
-  "/getproduct/:productId",
-  validateUser,
-  productController.getProductId
-);
-router.delete(
-  "/deleteproduct/:productId",
-  validateAdmin,
-  productController.deleteById
-);
+router.get("/getarticle", articleController.getAllProducts);
+router.get("/getarticle/:articleId", articleController.getProductId);
+router.delete("/deletearticle/:articleId", articleController.deleteById);
 
 module.exports = router;

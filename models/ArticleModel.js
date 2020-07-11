@@ -1,35 +1,34 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProductModel = new Schema({
+const ArticleModel = new Schema({
   image: {
     type: String,
-    // need change
     default: "public/articleImages/default-product-image.jpg",
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
-  price: {
+  paragraph1: {
     type: String,
     required: true,
   },
-  description: {
+  paragraph2: {
     type: String,
     required: true,
   },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  productGender: {
+  paragraph3: {
     type: String,
     required: true,
   },
-  productType: {
+  paragraph4: {
+    type: String,
+    required: true,
+  },
+  paragraph5: {
     type: String,
     required: true,
   },
 });
-module.exports = mongoose.model("product", ProductModel);
+module.exports = mongoose.model("article", ArticleModel);

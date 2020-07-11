@@ -1,4 +1,4 @@
-const productsModel = require("../models/ArticleModel");
+const articleModel = require("../models/ArticleModel");
 require("dotenv").config();
 
 module.exports = {
@@ -6,27 +6,27 @@ module.exports = {
     console.log(req.body.image);
     //   to cover when image field isn't filled, so default can come in (if not it will be replaced with "")
     let objWithoutImage = {
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      quantity: req.body.quantity,
-      productGender: req.body.productGender,
-      productType: req.body.productType,
+      title: req.body.title,
+      paragraph1: req.body.paragraph1,
+      paragraph2: req.body.paragraph2,
+      paragraph3: req.body.paragraph3,
+      paragraph4: req.body.paragraph4,
+      paragraph5: req.body.paragraph5,
     };
     // to cover when there are inputs in the image field
     let obj = {
       image: req.file && req.file.path,
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      quantity: req.body.quantity,
-      productGender: req.body.productGender,
-      productType: req.body.productType,
+      title: req.body.title,
+      paragraph1: req.body.paragraph1,
+      paragraph2: req.body.paragraph2,
+      paragraph3: req.body.paragraph3,
+      paragraph4: req.body.paragraph4,
+      paragraph5: req.body.paragraph5,
     };
 
     // see obj & objWithoutImage
     if (obj.image == null) {
-      productsModel
+      articleModel
         .create(objWithoutImage)
         .then((result) => {
           res.json({
@@ -37,7 +37,7 @@ module.exports = {
         })
         .catch((error) => res.status(400).json(error));
     } else {
-      productsModel
+      articleModel
         .create(obj)
         .then((result) => {
           res.json({
@@ -51,28 +51,29 @@ module.exports = {
   },
 
   editProductById: (req, res, next) => {
-    userId = req.params.productId;
+    articleId = req.params.articleId;
     //  find by id dulu supaya dapat data id tersebut.
-    productsModel.findById(userId).then((dataUserId) => {
-      productsModel
+    articleModel.findById(articleId).then((dataArticleId) => {
+      articleModel
         .findByIdAndUpdate(
-          userId,
+          articleId,
           // req.file && req.file.path karena kita plih file menggunakan "CHOOSE FILE"
           // dibikin bentuk || untuk mengcover apabila tidak ada yang diedit pada field tersebut maka datanya akan tetap seperti sebelumnya.
           {
-            image: (req.file && req.file.path) || dataUserId.image,
-            name: req.body.name || dataUserId.name,
-            price: req.body.price || dataUserId.price,
-            description: req.body.description || dataUserId.description,
-            quantity: req.body.quantity || dataUserId.quantity,
-            productGender: req.body.productGender || dataUserId.productGender,
-            productType: req.body.productType || dataUserId.productType,
+            image: (req.file && req.file.path) || dataArticleId.image,
+            title: req.body.title || dataArticleId.title,
+            paragraph1: req.body.paragraph1 || dataArticleId.paragraph1,
+            paragraph2: req.body.paragraph2 || dataArticleId.paragraph2,
+            paragraph3: req.body.paragraph3 || dataArticleId.paragraph3,
+            paragraph4: req.body.paragraph4 || dataArticleId.paragraph4,
+            paragraph5: req.body.paragraph5 || dataArticleId.paragraph5,
           },
+          // langsung update, ngga perlu refresh
           { new: true }
         )
         .then((result) => {
           res.json({
-            message: `The data of ${userId} successfully edited.`,
+            message: `The data of ${articleId} successfully edited.`,
             data: result,
           });
         })
@@ -81,7 +82,7 @@ module.exports = {
   },
 
   getAllProducts: (req, res, next) => {
-    productsModel
+    articleModel
       .find({})
       .then((result) => {
         res.json({
@@ -94,12 +95,12 @@ module.exports = {
   },
 
   getProductId: (req, res, next) => {
-    productsModel
-      .findById(req.params.productId)
+    articleModel
+      .findById(req.params.articleId)
       .then((result) => {
         res.json({
           status: "success",
-          message: `Successfully get data id of ${req.params.productId} !`,
+          message: `Successfully get data id of ${req.params.articleId} !`,
           data: result,
         });
       })
@@ -107,12 +108,12 @@ module.exports = {
   },
 
   deleteById: (req, res, next) => {
-    productsModel
-      .findByIdAndRemove(req.params.productId)
+    articleModel
+      .findByIdAndRemove(req.params.articleId)
       .then(() => {
         res.json({
           status: "success",
-          message: `Successfully delete id of ${req.params.productId} !`,
+          message: `Successfully delete id of ${req.params.articleId} !`,
         });
       })
       .catch((error) => res.status(400).json(error));

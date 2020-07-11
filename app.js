@@ -32,11 +32,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// This is to make public users could access our pictures in the folder of productImages that we have added.
+// This is to make public users could access our pictures in the folder of articleImages that we have added.
 // Harus mulai dari tahap pertama "/public" ---> dibuat static dan public sehingga bisa diakses di web.
-// dengan url "http://localhost:8000/public/productImages/2020-06-20T10:44:44.152Z-defaultPicture.jpg"
+// dengan url "http://localhost:8000/public/articleImages/2020-06-20T10:44:44.152Z-defaultPicture.jpg"
 app.use("/public", express.static("public"));
-app.use("/public/productImages", express.static("public"));
+app.use("/public/articleImages", express.static("public"));
 
 app.use("/", indexRouter);
 app.use("/article", articleRouter);
