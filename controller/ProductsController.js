@@ -1,4 +1,4 @@
-const productsModel = require("../models/ProductModel");
+const productsModel = require("../models/ArticleModel");
 require("dotenv").config();
 
 module.exports = {
