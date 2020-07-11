@@ -2,7 +2,7 @@ const articleModel = require("../models/ArticleModel");
 require("dotenv").config();
 
 module.exports = {
-  createProduct: (req, res, next) => {
+  createArticle: (req, res, next) => {
     console.log(req.body.image);
     //   to cover when image field isn't filled, so default can come in (if not it will be replaced with "")
     let objWithoutImage = {
@@ -31,7 +31,7 @@ module.exports = {
         .then((result) => {
           res.json({
             status: "success",
-            message: "Successfully create product!",
+            message: "Successfully create article!",
             data: result,
           });
         })
@@ -42,7 +42,7 @@ module.exports = {
         .then((result) => {
           res.json({
             status: "success",
-            message: "Successfully create product!",
+            message: "Successfully create article!",
             data: result,
           });
         })
@@ -50,7 +50,7 @@ module.exports = {
     }
   },
 
-  editProductById: (req, res, next) => {
+  editArticleById: (req, res, next) => {
     articleId = req.params.articleId;
     //  find by id dulu supaya dapat data id tersebut.
     articleModel.findById(articleId).then((dataArticleId) => {
@@ -81,20 +81,20 @@ module.exports = {
     });
   },
 
-  getAllProducts: (req, res, next) => {
+  getAllArticles: (req, res, next) => {
     articleModel
       .find({})
       .then((result) => {
         res.json({
           status: "success",
-          message: "Successfully get all products!",
+          message: "Successfully get all articles!",
           data: result,
         });
       })
       .catch((error) => res.status(400).json(error));
   },
 
-  getProductId: (req, res, next) => {
+  getArticleId: (req, res, next) => {
     articleModel
       .findById(req.params.articleId)
       .then((result) => {

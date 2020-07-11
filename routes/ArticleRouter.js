@@ -20,15 +20,15 @@ const upload = multer({
 router.post(
   "/addarticle",
   upload.single("image"),
-  articleController.createProduct
+  articleController.createArticle
 );
 router.put(
   "/editarticle/:articleId",
   upload.single("image"),
-  articleController.editProductById
+  articleController.editArticleById
 );
-router.get("/getarticle", articleController.getAllProducts);
-router.get("/getarticle/:articleId", articleController.getProductId);
+router.get("/getarticle", articleController.getAllArticles);
+router.get("/getarticle/:articleId", articleController.getArticleId);
 router.delete("/deletearticle/:articleId", articleController.deleteById);
 
 module.exports = router;
