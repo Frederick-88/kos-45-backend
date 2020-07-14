@@ -23,6 +23,7 @@ module.exports = {
       paragraph4: req.body.paragraph4,
       paragraph5: req.body.paragraph5,
     };
+    console.log(req.body.title);
 
     // see obj & objWithoutImage
     if (obj.image == null) {
@@ -52,7 +53,7 @@ module.exports = {
 
   editArticleById: (req, res, next) => {
     articleId = req.params.articleId;
-    //  find by id dulu supaya dapat data id tersebut.
+    //  find by id dulu supaya dapat data id tersebut. Karena untuk keperluan klau req body kosong, bakal tetap ada isi.
     articleModel.findById(articleId).then((dataArticleId) => {
       articleModel
         .findByIdAndUpdate(
