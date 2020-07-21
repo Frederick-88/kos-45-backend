@@ -14,15 +14,12 @@ var app = express();
 
 // biasanya mongoDB diperlukan supaya kita bisa post, ngga hanya get. Istilahnya sebagai database, untuk skala local kita ckup install mongodb dan letakkan nama di url
 const privateURLMongoDB = process.env.PRIVATE_URL_MONGODB_LOCALHOST;
-const onlineURLMongoDB = process.env.ONLINE_URL_MONGODB;
+const onlineURLMongoDB = process.env.PRIVATE_URL_ONLINE_MONGODB;
 
 mongoose.connect(onlineURLMongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
 });
-
-mongoose.set("useCreateIndex", true);
 
 app.use(cors());
 
