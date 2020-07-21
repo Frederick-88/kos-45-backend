@@ -14,11 +14,15 @@ var app = express();
 
 // biasanya mongoDB diperlukan supaya kita bisa post, ngga hanya get. Istilahnya sebagai database, untuk skala local kita ckup install mongodb dan letakkan nama di url
 const privateURLMongoDB = process.env.PRIVATE_URL_MONGODB_LOCALHOST;
+const onlineURLMongoDB = process.env.ONLINE_URL_MONGODB;
 
-mongoose.connect(privateURLMongoDB, {
+mongoose.connect(onlineURLMongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
+
+mongoose.set("useCreateIndex", true);
 
 app.use(cors());
 
@@ -35,8 +39,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // This is to make public users could access our pictures in the folder of articleImages that we have added.
 // Harus mulai dari tahap pertama "/public" ---> dibuat static dan public sehingga bisa diakses di web.
 // dengan url "http://localhost:8000/public/articleImages/2020-06-20T10:44:44.152Z-defaultPicture.jpg"
-app.use("/public", express.static("public"));
-app.use("/public/articleImages", express.static("public"));
+// app.use("/public", express.static("public"));
+// app.use("/public/articleImages", express.static("public"));
 
 app.use("/", indexRouter);
 app.use("/article", articleRouter);
