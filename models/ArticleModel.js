@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ArticleModel = new Schema({
   image: {
     type: String,
-    default: "public/articleImages/default-product-image.jpg",
+    required: true,
   },
   title: {
     type: String,
