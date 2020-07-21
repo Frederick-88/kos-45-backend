@@ -57,7 +57,7 @@ module.exports = {
       .then(() => {
         res.json({
           status: "success",
-          message: `Successfully delete id of ${req.params.articleId} !`,
+          message: `Successfully delete id of ${req.params.articleId}.`,
         });
       })
       .catch((error) => res.status(400).json(error));
